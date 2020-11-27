@@ -27,6 +27,14 @@ services:
       MYSQL_PASSWORD: ${DB_USER_PASSWORD}
     command: --default-authentication-plugin=mysql_native_password
 
+  fix_permissions:
+    build: ./php
+    command: chown -R www-data:www-data /var/www/akaunting
+    volumes:
+      - app-data:/var/www/akaunting
+    depends_on:
+      - akaunting_php
+
 volumes:
   app-data:
   db-data:
